@@ -2,11 +2,12 @@ const db = require('../database/connect')
 
 class Diary {
 
-    constructor ({ diary_id, diary_name, diary_text, category}) {
+    constructor ({ diary_id, diary_name, diary_text, category, diary_date}) {
         this.id = diary_id;
         this.name = diary_name;
         this.text = diary_text;
         this.category = category;
+        this.date = diary_date;
     }
 
     static async getAll() {
