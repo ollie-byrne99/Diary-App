@@ -28,25 +28,27 @@ class Diary {
     }
 
     static async create(data) {
-        const { name: diary_name, text: diary_text} = data;
+        const { name: diary_name, text: diary_text, category: category} = data;
     
-        const response = await db.query('INSERT INTO diaries (diary_name, diary_text, diary_category) VALUES ($1, $2, $3) RETURNING *;', [diary_name, diary_text, this.category]);
+        const response = await db.query('INSERT INTO diaries (diary_name, diary_text, category) VALUES ($1, $2, $3) RETURNING *;', [diary_name, diary_text, category]);
     
         return new Diary(response.rows[0]);
     }
 
     async update(data) {
-        const { name: diary_name} = data
-        const response = await db.query("UPDATE diaries SET diary_name = $1 WHERE diary_id = $2 RETURNING *", [diary_name, this.id])
+        const { name: diary_name, text: diary_text, category: category} = data;
+
+        const response = await db.query("UPDATE diaries SET diary_name = $1, diary_text = $2, category = $3 WHERE diary_id = $4 RETURNING *;", [diary_name, diary_text, category, this.id])
+
         if (response.rows.length != 1) {
             throw new Error("Unable to update diary name.")
         }
         return new Diary(response.rows[0]);
     }
 
-    static async deleteById(id) {
+    async deleteById() {
         try {
-            await db.query("DELETE FROM diaries WHERE diary_id = $1", [id]);
+            await db.query("DELETE FROM diaries WHERE diary_id = $1", [this.id]);
             return { success: true, message: 'Diary deleted successfully.'} 
         } catch (error) {
             throw new Error('This id does not match an entry')
