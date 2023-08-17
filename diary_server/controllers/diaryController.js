@@ -34,13 +34,13 @@ async function update (req, res) {
         const id = parseInt(req.params.id)
         const diaryToUpdate = await Diary.getOneById(id)
 
-        // const object = req.body.object;
+        const name = req.body.name
         
         if (!diaryToUpdate) {
             return res.status(404).send({ message: 'Diary not found' });
         }
 
-        const result = await diaryToUpdate.update(votes);
+        const result = await diaryToUpdate.update(name);
         res.status(200).json(result);
     } catch (err) {
         res.status(404).json({error: err.message})
