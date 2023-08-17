@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
 
+const diaryRoutes = require('./routes/diaryRouter')
 const app = express();
 
 app.use(cors());
@@ -15,5 +16,6 @@ app.get("/", (req, res) => {
     })
 })
 
+app.use('/diaries', diaryRoutes)
 
 module.exports = app
