@@ -4,7 +4,7 @@ CREATE TABLE diaries (
   diary_id INT GENERATED ALWAYS AS IDENTITY,
   diary_name VARCHAR(50) NOT NULL UNIQUE,
   diary_text VARCHAR(500),
-  category VARCHAR(30)
+  category VARCHAR(30),
   diary_date DATETIME
   PRIMARY KEY (diary_id)
 )
