@@ -31,17 +31,17 @@ async function create (req, res) {
 
 async function update (req, res) {
     try {
+        const data = req.body
         const id = parseInt(req.params.id)
         const diaryToUpdate = await Diary.getOneById(id)
-
-        const name = req.body.name
         
         if (!diaryToUpdate) {
             return res.status(404).send({ message: 'Diary not found' });
         }
 
-        const result = await diaryToUpdate.update(name);
+        const result = await diaryToUpdate.update(data);
         res.status(200).json(result);
+
     } catch (err) {
         res.status(404).json({error: err.message})
     }
@@ -50,7 +50,8 @@ async function update (req, res) {
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
-        await Diary.deleteById(id)
+        const diaryToDelete = await Diary.getOneById(id)
+        await diaryToDelete.deleteById(id)
         res.status(204).send({ message: 'entry deleted!' })
     } catch (error) {
       res.status(404).send({ error: error.message });
