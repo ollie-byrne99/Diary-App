@@ -2,9 +2,11 @@ const db = require('../database/connect')
 
 class Diary {
 
-    constructor ({ diary_id, diary_name}) {
+    constructor ({ diary_id, diary_name, diary_text, category}) {
         this.id = diary_id;
         this.name = diary_name;
+        this.text = diary_text;
+        this.category = category;
     }
 
     static async getAll() {
@@ -25,15 +27,16 @@ class Diary {
     }
 
     static async create(data) {
-        const { name: diary_name} = data;
+        const { name: diary_name, text: diary_text} = data;
     
-        const response = await db.query('INSERT INTO diaries (diary_name) VALUES ($1) RETURNING *;', [diary_name]);
+        const response = await db.query('INSERT INTO diaries (diary_name, diary_text, diary_category) VALUES ($1, $2, $3) RETURNING *;', [diary_name, diary_text, this.category]);
     
         return new Diary(response.rows[0]);
     }
 
-    async update(votes) {
-        const response = await db.query("UPDATE diaries SET diary_name = $1 WHERE diary_id = $2 RETURNING *", [votes, this.id])
+    async update(data) {
+        const { name: diary_name} = data
+        const response = await db.query("UPDATE diaries SET diary_name = $1 WHERE diary_id = $2 RETURNING *", [diary_name, this.id])
         if (response.rows.length != 1) {
             throw new Error("Unable to update diary name.")
         }
