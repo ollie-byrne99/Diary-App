@@ -22,18 +22,23 @@
   </nav>
 
   <div class="mb-3 container">
-    <label for="exampleFormControlInput1" class="form-label">Name</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of diary entry">
+    <label for="nameInput" class="form-label">Name</label>
+    <input type="text" class="form-control" id="nameInput" placeholder="Name of diary entry">
   </div>
   <div class="mb-3 container">
-    <label for="exampleFormControlTextarea1" class="form-label"></label>Text</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write about your wildest dreams, deepest fears and regrettable choices"></textarea>
+    <label for="textInput" class="form-label"></label>Text</label>
+    <textarea class="form-control" id="textInput" rows="3" placeholder="Write about your wildest dreams, deepest fears and regrettable choices"></textarea>
   </div>
   
-  <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-primary" type="button">Click to create diary entry</button>
+  <div class="d-grid gap-2 col-3 mx-auto">
+    <button class="btn btn-dark" type="button">Click to create diary entry</button>
   </div>
 
+  <div class="container diary-entries">
+    <h1>Diary Entries</h1>
+    <h2 id="diary_name">Name</h2>
+    <p id="diary_text">Diary text</p>
+  </div>
   
 </body>
 </html>
