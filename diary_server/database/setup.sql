@@ -6,7 +6,7 @@ CREATE TABLE diaries (
   diary_text VARCHAR(500),
   category VARCHAR(30),
   category VARCHAR(30)
-  diary_date DATETIME
+  diary_date DATETIME,
   PRIMARY KEY (diary_id)
 );
 
